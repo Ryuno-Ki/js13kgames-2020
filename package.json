@@ -38,7 +38,7 @@
     "jsdoc": "3.6.7",
     "jsdoc-mermaid": "1.0.0",
     "jsdom": "16.5.3",
-    "rollup": "2.48.0",
+    "rollup": "2.52.4",
     "rollup-plugin-commonjs": "10.1.0",
     "rollup-plugin-copy": "3.4.0",
     "rollup-plugin-license": "2.3.0",
