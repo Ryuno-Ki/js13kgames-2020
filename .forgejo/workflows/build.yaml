@@ -1,0 +1,34 @@
+on:
+  push:
+    branches:
+      - master
+  workflow_dispatch:
+    inputs: {}
+
+jobs:
+  build_and_release:
+    runs-on: docker
+    steps:
+      - name: "Checkout"
+        uses: actions/checkout@v4
+
+      - name: "Install curl, jq, node and npm"
+        run: "apt-get -qq update && apt-get install -y -qq curl jq nodejs npm"
+
+      - name: "Install repo dependencies"
+        run: "npm i"
+
+      - name: "Build project"
+        run: "npm run build"
+
+      - name: "Release website"
+        run: |
+          echo "Releasing master-${{ env.GITHUB_SHA }} for ${{ env.GITHUB_REF_NAME }}"
+          release_id=$(curl --fail -sS -X POST -H "Content-Type: application/json" -H "Authorization: token ${{ secrets.release_pat }}" -d '{"name": "snapshot", "tag_name": "${{ env.GITHUB_REF_NAME }}-${{ env.GITHUB_SHA }}", "target_commitish": "${{ env.GITHUB_SHA }}"}' "https://code.jaenis.ch/api/v1/repos/js13kgames/js13kgames-2020/releases" | jq ".id")
+          if [ $release_id = "null" ]; then echo "Release already exists."; exit 1; fi
+          tar -czf snapshot.tar.gz -C dist .
+          echo "Uploading ${{ env.GITHUB_REF_NAME }} to $release_id"
+          sh -c "curl --fail -sS -H 'Authorization: token ${{ secrets.release_pat }}' -F 'attachment=@snapshot.tar.gz' 'https://code.jaenis.ch/api/v1/repos/js13kgames/js13kgames-2020/releases/$release_id/assets'"
+
+      - name: "Trigger deployment"
+        run: "sleep 5 && curl https://2020.js13kgames.demo.jaenis.ch/deploy"
