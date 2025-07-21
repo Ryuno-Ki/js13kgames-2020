@@ -1,15 +1,47 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" id="sr-language">
 <head>
-<meta charset="utf-8" />
-<title>Polygone - Trust Not Found - JS13kgames 2020</title>
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<link href="./app.css" rel="stylesheet" />
+  <meta charset="utf-8" />
+  <title>Polygone - Trust Not Found - JS13kgames 2020</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link href="./app.css" rel="stylesheet" />
 </head>
 <body>
-<noscript>
-I'm deeply sorry, but this game requires JavaScript to run.
-</noscript>
-<main id="app"></main>
-<script src="./app.js"></script>
+  <noscript>
+    I'm deeply sorry, but this game requires JavaScript to run.
+  </noscript>
+  <main id="app">
+    <section id="menu">
+      <nav id="nav" role="navigation">
+        <ul id="nav__list">
+	  <li id="nav__list__inventory">
+	    <a
+	      id="nav__list__inventory__link"
+	      data-t-key="LINK_INVENTORY"
+	      >
+	    </a>
+	  </li>
+
+	  <li id="nav__list__memory">
+	    <a
+	      id="nav__list__memory__link"
+	      data-t-key="LINK_MEMORY"
+	      >
+	    </a>
+	  </li>
+
+	  <li id="nav__list__settings">
+	    <a
+	      id="nav__list__settings__link"
+	      data-t-key="LINK_SETTINGS"
+	      >
+	    </a>
+	  </li>
+	</ul>
+      </nav>
+    </section>
+    <section id="game">
+    </section>
+  </main>
+  <script src="./app.js"></script>
 </body>

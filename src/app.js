@@ -1,3 +1,7 @@
+import { t } from './js/translations'
+
+t()
+
 import { Game } from './js/game'
 
 const el = document.querySelector('#app')
